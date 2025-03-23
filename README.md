@@ -1,18 +1,77 @@
 # Speech Demonstration for Baxter Robot
-## Env
-ubuntu 18, ros melodic, baxter pkg
+
+This project achieves how to demonstrate/control a Baxter robot using speech commands. It integrates speech recognition with ROS to translate voice inputs into robot actions.
+
+## Environment
+
+- **Operating System**: Ubuntu 18.04
+- **ROS Version**: Melodic
+- **Baxter SDK**: Installed and configured
 
 ## Speech Recognition
+
+The speech recognition module processes voice inputs and publishes commands to the `voice_msg` ROS topic. 
+
+### Key Components
+
+1. **Libraries**:
+   - `libais-lite-Ual.so`: Core library for the speech recognition engine. It must be placed in a system-accessible directory, such as:
+     - `/home/znfs/anaconda3/lib/libais-lite-Ual.so` (for Anaconda environments)
+     - `/usr/lib/libais-lite-Ual.so` (for system Python)
+   - `libunikws.so`: Dynamically loaded by Python scripts. No additional setup is required.
+
+2. **Grammar Files**:
+   - Located in the `data/` folder. These files define the recognition rules and can be customized for specific projects.
+
+3. **Example Scripts**:
+   - `demo.py`: Basic example of speech recognition.
+   - `demo_multi_thread.py`: Demonstrates multi-threaded speech recognition.
+
+### Usage
+
+Run the speech recognition script to publish commands to the `voice_msg` topic:
 ```
-#Speech Recognition and Pub to voice_msg to ROS
-baxter/src/speech/src/demo_multi_thread.py, or demo.py
+python baxter/src/speech/src/demo.py  # or demo_multi_thread.py
 ```
-1）lib文件夹下有libais-lite-Ual.so和libunikws.so，其中libais-lite-Ual.so是识别引擎基础库，被libunikws.so调用，libais-lite-Ual.so需要放在可检索到的系统目录 (e.g. **in the shared 3090 /home/znfs/anaconda3/lib/libais-lite-Ual.so for anaconda base env; and /usr/lib/libais-lite-Ual.so for system python**)，libunikws.so不需要，libunikws.so在python代码中动态调用
-2）data文件夹下是语法文件，是开发过程中使用的，需要根据实际项目进行替换，目前是保留了测试用的语法文件
-3）上述路径在代码中都是可配置的
-4）demo_multi_thread.py是使用线程调用语音识别的例子
 
 ## Speech to Baxter Actions
+The speech_baxter.py script subscribes to the voice_msg topic and translates speech commands into actions for the Baxter robot.
+
+### Features
+Joint Movements:
+Move forward, backward, left, and right.
+Rotate the wrist.
+Gripper Control:
+Open and close the gripper.
+Command Bindings
+The following commands are mapped to specific actions:
+
+### Command	Action
+1	Move forward
+2	Move backward
+3	Move right
+4	Move left
+5	Open gripper
+6	Close gripper
+7	Rotate wrist
+....
+
+### Running the Script
+Ensure the Baxter robot is connected and enabled.
+Start the ROS master:
+Run the speech_baxter.py script
+
 ```
+roscore
 baxter/src/baxter_project/scripts/speech_baxter.py
 ```
+
+
+
+## Custom Message Format
+The voicemsg.msg file defines the custom message format for speech commands:
+
+## Notes
+Ensure the Baxter robot is properly initialized and enabled before running the scripts.
+The paths for libraries and grammar files can be configured in the scripts as needed.
+Extend the bindings dictionary in speech_baxter.py to add new commands.
