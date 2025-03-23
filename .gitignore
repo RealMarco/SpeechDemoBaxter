@@ -1,0 +1,13 @@
+devel/
+logs/
+build/
+.catkin_tools/
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.pyc
+**/.vscode/
+**/.history/
+*/*/.vscode/
+*/*/.history/
+
