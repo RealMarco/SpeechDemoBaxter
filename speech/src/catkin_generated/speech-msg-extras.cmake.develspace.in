@@ -1,0 +1,2 @@
+set(speech_MESSAGE_FILES "/home/znfs/project_ws/baxter/src/speech/msg/voicemsg.msg")
+set(speech_SERVICE_FILES "")

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/znfs/project_ws/baxter/src/speech/src/devel/setup.sh

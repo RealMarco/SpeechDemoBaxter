@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: speech
+Description: Description of speech
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 
